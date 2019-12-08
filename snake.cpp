@@ -80,7 +80,7 @@ void Snake::start()
     this->renderBoard();
 }
 
-bool Snake::isCollision(int x, int y)
+bool Snake::isOverlapSnake(int x, int y)
 {
     for (int i = 0; i < this->snake.size(); i ++)
     {
@@ -103,7 +103,7 @@ void Snake::createFood()
     {
         for (int j = 1; j < gameBoardWidth - 1; i ++)
         {
-            if(this->isCollision(j, i))
+            if(this->isOverlapSnake(j, i))
             {
                 continue;
             }
@@ -116,10 +116,22 @@ void Snake::createFood()
 
     // Randomly select a grid that is not occupied by the snake
     int random_idx = std::rand() % availableGrids.size();
-    SnakeBody food = availableGrids[random_idx];
-    
+    this->food = availableGrids[random_idx];
+}
+
+void Snake::setRandomSeed(unsigned int seed)
+{
+    std::srand(seed);
+}
+
+
+void Snake::initializeSnake()
+{
     
 }
+
+
+
 
 
 

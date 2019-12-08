@@ -27,8 +27,10 @@ public:
     void createGameBoard();
     void createInstructionBoard();
     void renderBoard();
+    void setRandomSeed(unsigned int seed);
+    void initializeSnake();
     void createFood();
-    bool isCollision(int x, int y);
+    bool isOverlapSnake(int x, int y);
     void start();
 
 
@@ -38,6 +40,7 @@ private:
     // One is for game board
     int screenWidth;
     int screenHeight;
+    const int snakeLength = 5;
     const int informationHeight = 5;
     const int instructionWidth = 15;
     std::vector<WINDOW *> board;
@@ -45,6 +48,7 @@ private:
     const int initialSnakeLength = 2;
     const char snakeSymbol = '@';
     // Food information
+    SnakeBody food;
     const char foodSymbol = '#';
     // Four directions
     char direction;
