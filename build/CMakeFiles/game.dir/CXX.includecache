@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/leimao/GitHub/Console_Snake/game.cpp
+snake.h
+/home/leimao/GitHub/Console_Snake/snake.h
+
+/home/leimao/GitHub/Console_Snake/snake.cpp
+snake.h
+/home/leimao/GitHub/Console_Snake/snake.h
+string
+-
+
+/home/leimao/GitHub/Console_Snake/snake.h
+vector
+-
+ncurses.h
+-
+
