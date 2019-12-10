@@ -1,3 +1,3 @@
 /home/leimao/GitHub/Console_Snake/build/CMakeFiles/rebuild_cache.dir
-/home/leimao/GitHub/Console_Snake/build/CMakeFiles/game.dir
+/home/leimao/GitHub/Console_Snake/build/CMakeFiles/main.dir
 /home/leimao/GitHub/Console_Snake/build/CMakeFiles/edit_cache.dir

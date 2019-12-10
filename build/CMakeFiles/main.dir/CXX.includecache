@@ -7,20 +7,24 @@
 #IncludeRegexTransform: 
 
 /home/leimao/GitHub/Console_Snake/game.cpp
+game.h
+/home/leimao/GitHub/Console_Snake/game.h
+string
+-
+
+/home/leimao/GitHub/Console_Snake/game.h
+ncurses.h
+-
+vector
+-
 snake.h
 /home/leimao/GitHub/Console_Snake/snake.h
 
-/home/leimao/GitHub/Console_Snake/snake.cpp
-snake.h
-/home/leimao/GitHub/Console_Snake/snake.h
-string
--
-cstdlib
--
+/home/leimao/GitHub/Console_Snake/main.cpp
+game.h
+/home/leimao/GitHub/Console_Snake/game.h
 
 /home/leimao/GitHub/Console_Snake/snake.h
 vector
--
-ncurses.h
 -
 

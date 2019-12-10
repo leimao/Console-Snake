@@ -111,17 +111,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named game
+# Target rules for targets named main
 
 # Build rule for target.
-game: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 game
-.PHONY : game
+main: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 main
+.PHONY : main
 
 # fast build rule for target.
-game/fast:
-	$(MAKE) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/build
-.PHONY : game/fast
+main/fast:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
+.PHONY : main/fast
 
 game.o: game.cpp.o
 
@@ -129,7 +129,7 @@ game.o: game.cpp.o
 
 # target to build an object file
 game.cpp.o:
-	$(MAKE) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/game.cpp.o
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/game.cpp.o
 .PHONY : game.cpp.o
 
 game.i: game.cpp.i
@@ -138,7 +138,7 @@ game.i: game.cpp.i
 
 # target to preprocess a source file
 game.cpp.i:
-	$(MAKE) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/game.cpp.i
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/game.cpp.i
 .PHONY : game.cpp.i
 
 game.s: game.cpp.s
@@ -147,35 +147,35 @@ game.s: game.cpp.s
 
 # target to generate assembly for a file
 game.cpp.s:
-	$(MAKE) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/game.cpp.s
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/game.cpp.s
 .PHONY : game.cpp.s
 
-snake.o: snake.cpp.o
+main.o: main.cpp.o
 
-.PHONY : snake.o
+.PHONY : main.o
 
 # target to build an object file
-snake.cpp.o:
-	$(MAKE) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/snake.cpp.o
-.PHONY : snake.cpp.o
+main.cpp.o:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/main.cpp.o
+.PHONY : main.cpp.o
 
-snake.i: snake.cpp.i
+main.i: main.cpp.i
 
-.PHONY : snake.i
+.PHONY : main.i
 
 # target to preprocess a source file
-snake.cpp.i:
-	$(MAKE) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/snake.cpp.i
-.PHONY : snake.cpp.i
+main.cpp.i:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/main.cpp.i
+.PHONY : main.cpp.i
 
-snake.s: snake.cpp.s
+main.s: main.cpp.s
 
-.PHONY : snake.s
+.PHONY : main.s
 
 # target to generate assembly for a file
-snake.cpp.s:
-	$(MAKE) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/snake.cpp.s
-.PHONY : snake.cpp.s
+main.cpp.s:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/main.cpp.s
+.PHONY : main.cpp.s
 
 # Help Target
 help:
@@ -184,14 +184,14 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... rebuild_cache"
-	@echo "... game"
+	@echo "... main"
 	@echo "... edit_cache"
 	@echo "... game.o"
 	@echo "... game.i"
 	@echo "... game.s"
-	@echo "... snake.o"
-	@echo "... snake.i"
-	@echo "... snake.s"
+	@echo "... main.o"
+	@echo "... main.i"
+	@echo "... main.s"
 .PHONY : help
 
 

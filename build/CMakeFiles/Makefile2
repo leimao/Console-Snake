@@ -60,39 +60,39 @@ CMAKE_SOURCE_DIR = /home/leimao/GitHub/Console_Snake
 CMAKE_BINARY_DIR = /home/leimao/GitHub/Console_Snake/build
 
 #=============================================================================
-# Target rules for target CMakeFiles/game.dir
+# Target rules for target CMakeFiles/main.dir
 
 # All Build rule for target.
-CMakeFiles/game.dir/all:
-	$(MAKE) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/depend
-	$(MAKE) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/leimao/GitHub/Console_Snake/build/CMakeFiles --progress-num=1,2,3 "Built target game"
-.PHONY : CMakeFiles/game.dir/all
+CMakeFiles/main.dir/all:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/depend
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/leimao/GitHub/Console_Snake/build/CMakeFiles --progress-num=1,2,3 "Built target main"
+.PHONY : CMakeFiles/main.dir/all
 
 # Include target in all.
-all: CMakeFiles/game.dir/all
+all: CMakeFiles/main.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/game.dir/rule: cmake_check_build_system
+CMakeFiles/main.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/leimao/GitHub/Console_Snake/build/CMakeFiles 3
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/game.dir/all
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/main.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/leimao/GitHub/Console_Snake/build/CMakeFiles 0
-.PHONY : CMakeFiles/game.dir/rule
+.PHONY : CMakeFiles/main.dir/rule
 
 # Convenience name for target.
-game: CMakeFiles/game.dir/rule
+main: CMakeFiles/main.dir/rule
 
-.PHONY : game
-
-# clean rule for target.
-CMakeFiles/game.dir/clean:
-	$(MAKE) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/clean
-.PHONY : CMakeFiles/game.dir/clean
+.PHONY : main
 
 # clean rule for target.
-clean: CMakeFiles/game.dir/clean
+CMakeFiles/main.dir/clean:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/clean
+.PHONY : CMakeFiles/main.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/main.dir/clean
 
 .PHONY : clean
 

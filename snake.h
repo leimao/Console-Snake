@@ -2,8 +2,14 @@
 #define SNAKE_H
 
 #include <vector>
-#include <ncurses.h>
 
+enum class Direction
+{
+    Up = 0,
+    Down = 1,
+    Left = 2,
+    Right = 3,
+};
 
 class SnakeBody
 {
@@ -14,46 +20,48 @@ public:
     int getY() const;
     bool operator == (const SnakeBody& snakeBody);
 private:
-    int x;
-    int y;
+    int mX;
+    int mY;
 };
 
-
+// Snake class should have no depency on the GUI library
 class Snake
 {
 public:
-    Snake();
-    void createInformationBoard();
-    void createGameBoard();
-    void createInstructionBoard();
-    void renderBoard();
-    void setRandomSeed(unsigned int seed);
+    Snake(int gameBoardWidth, int gameBoardHeight);
+    // Set random seed
+    // void setRandomSeed(unsigned int seed);
+    // Initialize snake
     void initializeSnake();
-    void createFood();
-    bool isOverlapSnake(int x, int y);
-    void start();
+    // Check if the snake is on the coordinate
+    // bool isSnakeOn(int x, int y);
+    // Checking API for generating random food
+    bool isPartOfSnake(int x, int y);
+    // Check if hit wall
+    void senseFood(SnakeBody food);
+    bool hitWall();
+    bool touchFood();
+    bool hitSelf();
+    // Grow
+    bool grow();
+    //bool setDirection(Direction direction);
+    bool changeDirection(Direction newDirection);
+    std::vector<SnakeBody>& getSnake();
+    // 
+    void resetSnake();
 
+
+
+    bool moveFoward();
 
 private:
-    // We need to have two windows
-    // One is for game introduction
-    // One is for game board
-    int screenWidth;
-    int screenHeight;
-    const int snakeLength = 5;
-    const int informationHeight = 5;
-    const int instructionWidth = 15;
-    std::vector<WINDOW *> board;
+    const int mGameBoardWidth;
+    const int mGameBoardHeight;
     // Snake information
-    const int initialSnakeLength = 2;
-    const char snakeSymbol = '@';
-    // Food information
-    SnakeBody food;
-    const char foodSymbol = '#';
-    // Four directions
-    char direction;
-    // 
-    std::vector<SnakeBody> snake;
+    const int mInitialSnakeLength = 2;
+    Direction mDirection;
+    SnakeBody mFood;
+    std::vector<SnakeBody> mSnake;
 };
 
 

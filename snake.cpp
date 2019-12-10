@@ -2,89 +2,71 @@
 #include <string>
 #include <cstdlib>
 
-Snake::Snake()
+Snake::Snake(int gameBoardWidth, int gameBoardHeight): mGameBoardWidth(gameBoardWidth), mGameBoardHeight(mGameBoardHeight)
 {
-    this->board.resize(3);
-    initscr();
-    noecho();
-    getmaxyx(stdscr, this->screenHeight, this->screenWidth);
-    this->createInformationBoard();
-    this->createGameBoard();
-    this->createInstructionBoard();
-}
-
-void Snake::createInformationBoard()
-{
-    int startY = 0;
-    int startX = 0;
-    this->board[0] = newwin(this->informationHeight, this->screenWidth, startY, startX);
-    mvwprintw(this->board[0], 1, 1, "Welcome to Snake Game!");
-    mvwprintw(this->board[0], 2, 1, "Author: Lei Mao");
-}
-
-void Snake::createGameBoard()
-{
-    int startY = this->informationHeight;
-    int startX = 0;
-    this->board[1] = newwin(this->screenHeight - this->informationHeight, this->screenWidth - this->instructionWidth, startY, startX);
-    //mvwprintw(this->board[1], 1, 1, "Welcome to Snake Game!");
-    //mvwprintw(this->board[1], 2, 1, "Author: Lei Mao");
 }
 
 
-void Snake::createInstructionBoard()
+
+void Snake::initializeSnake()
 {
-    int startY = this->informationHeight;
-    int startX = this->screenWidth - this->instructionWidth;
-    this->board[2] = newwin(this->screenHeight - this->informationHeight, this->instructionWidth, startY, startX);
-    mvwprintw(this->board[2], 1, 1, "Manual");
-    /*
-    std::string s1(1, char(24));
-    std::string s2(1, char(25));
-    std::string s3(1, char(26));
-    std::string s4(1, char(27));
-    */
-   std::string s1 = "W: Up";
-   std::string s2 = "S: Down";
-   std::string s3 = "A: Left";
-   std::string s4 = "D: Right";
-    //s1 = ":";
-    mvwprintw(this->board[2], 3, 1, "W: Up");
-    mvwprintw(this->board[2], 4, 1, "S: Down");
-    mvwprintw(this->board[2], 5, 1, "A: Left");
-    mvwprintw(this->board[2], 6, 1, "D: Right");
-
-    mvwprintw(this->board[2], 8, 1, "Difficulty");
-    mvwprintw(this->board[2], 11, 1, "Points");
-}
-
-
-void Snake::renderBoard()
-{
-    refresh();
-    for (int i = 0; i < this->board.size(); i ++)
+    // Instead of using a random initialization algorithm
+    // We always put the snake at the center of the game board
+    int centerX = this->mGameBoardWidth / 2;
+    int centerY = this->mGameBoardHeight / 2;
+    for (int i = 0; i < this->mInitialSnakeLength; i ++)
     {
-        box(this->board[i], 0, 0);
-        wrefresh(this->board[i]);
+        this->mSnake.push_back(SnakeBody(centerX, centerY + i));
     }
-    refresh();
-    // Get a character from keyboard before exit.
-    getch();
-    endwin();
+    this->mSnake.push_back(SnakeBody(centerX, centerY));
+    this->mDirection = Direction::Up;
 }
 
-void Snake::start()
-{
-    this->createInformationBoard();
-    this->createGameBoard();
-    this->renderBoard();
-}
 
-bool Snake::isOverlapSnake(int x, int y)
+
+bool Snake::isPartOfSnake(int x, int y)
 {
-    for (int i = 0; i < this->snake.size(); i ++)
+    SnakeBody temp = SnakeBody(x, y);
+    for (int i = 0; i < this->mSnake.size(); i ++)
     {
-        if (this->snake[i].getX == x && this->snake[i].getY == y)
+        if (this->mSnake[i] == temp)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+/*
+ * Assumption:
+ * Only the head would hit wall.
+ */
+bool Snake::hitWall()
+{
+    SnakeBody& head = this->mSnake[0];
+    int headX = head.getX();
+    int headY = head.getY();
+    if (headX < 0 || headX >= this->mGameBoardWidth)
+    {
+        return true;
+    }
+    if (headY < 0 || headY >= this->mGameBoardHeight)
+    {
+        return true;
+    }
+    return false;
+}
+
+/*
+ * The snake head is overlapping with its body
+ */
+bool Snake::hitSelf()
+{
+    SnakeBody& head = this->mSnake[0];
+    // Exclude the snake head
+    for (int i = 1; i < this->mSnake.size(); i ++)
+    {
+        if (this->mSnake[i] == head)
         {
             return true;
         }
@@ -93,66 +75,41 @@ bool Snake::isOverlapSnake(int x, int y)
 }
 
 
-void Snake::createFood()
+bool Snake::touchFood()
 {
-    int gameBoardWidth = this->screenHeight - this->instructionWidth;
-    int gameBoardHeight = this->screenWidth - this->informationHeight;
-
-    std::vector<SnakeBody> availableGrids;
-    for (int i = 1; i < gameBoardHeight - 1; i ++)
+    SnakeBody& head = this->mSnake[0];
+    int headX = head.getX();
+    int headY = head.getY();
+    int headXNext;
+    int headYNext;
+    switch (this->mDirection)
     {
-        for (int j = 1; j < gameBoardWidth - 1; i ++)
+        case Direction::Up:
         {
-            if(this->isOverlapSnake(j, i))
-            {
-                continue;
-            }
-            else
-            {
-                availableGrids.push_back(SnakeBody(j, i));
-            }
+            headXNext = headX;
+            headYNext = headY - 1;
+            break;
+        }
+        case Direction::Down:
+        {
+            headXNext = headX;
+            headYNext = headY + 1;
+            break;
+        }
+        case Direction::Left:
+        {
+            headXNext = headX - 1;
+            headYNext = headY;
+            break;
+        }
+        case Direction::Right:
+        {
+            headXNext = headX + 1;
+            headYNext = headY;
+            break;
         }
     }
-
-    // Randomly select a grid that is not occupied by the snake
-    int random_idx = std::rand() % availableGrids.size();
-    this->food = availableGrids[random_idx];
-}
-
-void Snake::setRandomSeed(unsigned int seed)
-{
-    std::srand(seed);
-}
-
-
-void Snake::initializeSnake()
-{
-    
-}
-
-
-
-
-
-
-SnakeBody::SnakeBody(int x, int y): x(x), y(y)
-{
-}
-
-int SnakeBody::getX() const
-{
-    return this->x;
-}
-
-int SnakeBody::getY() const
-{
-    return this->y;
-}
-
-
-bool SnakeBody::operator == (const SnakeBody& snakeBody)
-{
-    if (snakeBody.getX() == this->getX() && snakeBody.getY() == this->getY())
+    if (this->mFood == SnakeBody(headXNext, headYNext))
     {
         return true;
     }
@@ -162,6 +119,95 @@ bool SnakeBody::operator == (const SnakeBody& snakeBody)
     }
 }
 
+bool Snake::grow()
+{
+    // Create a copy of food
+    SnakeBody newBody = this->mFood;
+    if (this->touchFood())
+    {
+        // Put the new body to the head of the snake
+        this->mSnake.insert(this->mSnake.begin(), newBody); 
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
 
 
+void Snake::senseFood(SnakeBody food)
+{
+    this->mFood = food;
+}
 
+
+std::vector<SnakeBody>& Snake::getSnake()
+{
+    return this->mSnake;
+}
+
+
+bool Snake::changeDirection(Direction newDirection)
+{
+    switch (this->mDirection)
+    {
+        case Direction::Up:
+        {
+            if (newDirection == Direction::Left || newDirection == Direction::Right)
+            {
+                this->mDirection = newDirection;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        case Direction::Down:
+        {
+            if (newDirection == Direction::Left || newDirection == Direction::Right)
+            {
+                this->mDirection = newDirection;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        case Direction::Left:
+        {
+            if (newDirection == Direction::Up || newDirection == Direction::Down)
+            {
+                this->mDirection = newDirection;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        case Direction::Right:
+        {
+            if (newDirection == Direction::Up || newDirection == Direction::Down)
+            {
+                this->mDirection = newDirection;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+}
+
+
+/*
+bool Snake::moveFoward()
+{bool changeDirection(Direction newDirection);
+    SnakeBody lastBody = this->mSnake[this->mSnake.size()-1];
+    SnakeBody 
+}
+*/
