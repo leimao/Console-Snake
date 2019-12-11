@@ -11,6 +11,12 @@ game.h
 /home/leimao/GitHub/Console_Snake/game.h
 string
 -
+iostream
+-
+chrono
+-
+thread
+-
 
 /home/leimao/GitHub/Console_Snake/game.h
 ncurses.h
@@ -19,6 +25,8 @@ vector
 -
 snake.h
 /home/leimao/GitHub/Console_Snake/snake.h
+memory
+-
 
 /home/leimao/GitHub/Console_Snake/main.cpp
 game.h

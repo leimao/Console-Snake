@@ -4,8 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/leimao/GitHub/Console_Snake/game.cpp" "/home/leimao/GitHub/Console_Snake/build/CMakeFiles/game.dir/game.cpp.o"
-  "/home/leimao/GitHub/Console_Snake/snake.cpp" "/home/leimao/GitHub/Console_Snake/build/CMakeFiles/game.dir/snake.cpp.o"
+  "/home/leimao/GitHub/Console_Snake/snake.cpp" "/home/leimao/GitHub/Console_Snake/build/CMakeFiles/snakeTest.dir/snake.cpp.o"
+  "/home/leimao/GitHub/Console_Snake/snakeTest.cpp" "/home/leimao/GitHub/Console_Snake/build/CMakeFiles/snakeTest.dir/snakeTest.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

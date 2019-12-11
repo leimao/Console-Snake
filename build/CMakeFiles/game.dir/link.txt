@@ -1,1 +1,0 @@
-/usr/bin/c++    -rdynamic CMakeFiles/game.dir/snake.cpp.o CMakeFiles/game.dir/game.cpp.o  -o game -lcurses 

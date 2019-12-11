@@ -28,6 +28,7 @@ private:
 class Snake
 {
 public:
+    //Snake();
     Snake(int gameBoardWidth, int gameBoardHeight);
     // Set random seed
     // void setRandomSeed(unsigned int seed);
@@ -42,27 +43,22 @@ public:
     bool hitWall();
     bool touchFood();
     bool hitSelf();
-    // Grow
-    bool grow();
+    bool checkCollision();
     //bool setDirection(Direction direction);
     bool changeDirection(Direction newDirection);
     std::vector<SnakeBody>& getSnake();
-    // 
-    void resetSnake();
-
-
-
+    int getLength();
+    SnakeBody createNewHead();
     bool moveFoward();
 
 private:
     const int mGameBoardWidth;
     const int mGameBoardHeight;
     // Snake information
-    const int mInitialSnakeLength = 2;
+    const int mInitialSnakeLength = 3;
     Direction mDirection;
     SnakeBody mFood;
     std::vector<SnakeBody> mSnake;
 };
-
 
 #endif

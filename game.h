@@ -4,6 +4,7 @@
 #include <ncurses.h>
 #include <vector>
 #include "snake.h"
+#include <memory>
 
 class Game
 {
@@ -12,30 +13,33 @@ public:
     void createInformationBoard();
     void createGameBoard();
     void createInstructionBoard();
+    void initializeGame();
+    void createSnake();
     void createRamdonFood();
     void renderBoard();
     void renderSnake();
+    void renderFood();
     void start();
-    void renderTest();
 
 private:
     // We need to have two windows
     // One is for game introduction
-    // One is for game board
-    int screenWidth;
-    int screenHeight;
-    int gameBoardWidth;
-    int gameBoardHeight;
-    const int snakeInitialLength = 2;
-    const int informationHeight = 5;
-    const int instructionWidth = 15;
-    std::vector<WINDOW *> board;
+    // One is for game mWindows
+    int mScreenWidth;
+    int mScreenHeight;
+    int mGameBoardWidth;
+    int mGameBoardHeight;
+    const int mSnakeInitialLength = 2;
+    const int mInformationHeight = 5;
+    const int mInstructionWidth = 15;
+    std::vector<WINDOW *> mWindows;
     // Snake information
-    const int initialSnakeLength = 2;
-    const char snakeSymbol = '@';
+    const int mInitialSnakeLength = 2;
+    const char mSnakeSymbol = '@';
     // Food information
-    //SnakeBody food;
-    const char foodSymbol = '#';
+    std::unique_ptr<Snake> mPtrSnake;
+    SnakeBody mFood;
+    const char mFoodSymbol = '#';
     
 };
 

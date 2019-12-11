@@ -6,6 +6,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/leimao/GitHub/Console_Snake/game.cpp" "/home/leimao/GitHub/Console_Snake/build/CMakeFiles/main.dir/game.cpp.o"
   "/home/leimao/GitHub/Console_Snake/main.cpp" "/home/leimao/GitHub/Console_Snake/build/CMakeFiles/main.dir/main.cpp.o"
+  "/home/leimao/GitHub/Console_Snake/snake.cpp" "/home/leimao/GitHub/Console_Snake/build/CMakeFiles/main.dir/snake.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

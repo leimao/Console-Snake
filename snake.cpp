@@ -2,27 +2,52 @@
 #include <string>
 #include <cstdlib>
 
-Snake::Snake(int gameBoardWidth, int gameBoardHeight): mGameBoardWidth(gameBoardWidth), mGameBoardHeight(mGameBoardHeight)
+
+#include <iostream>
+
+
+SnakeBody::SnakeBody()
 {
 }
 
 
+SnakeBody::SnakeBody(int x, int y): mX(x), mY(y)
+{
+}
+
+int SnakeBody::getX() const
+{
+    return mX;
+}
+
+int SnakeBody::getY() const
+{
+    return mY;
+}
+
+bool SnakeBody::operator == (const SnakeBody& snakeBody)
+{
+    return (this->getX() == snakeBody.getX() && this->getY() == snakeBody.getY());
+}
+
+Snake::Snake(int gameBoardWidth, int gameBoardHeight): mGameBoardWidth(gameBoardWidth), mGameBoardHeight(gameBoardHeight)
+{
+    this->initializeSnake();
+}
 
 void Snake::initializeSnake()
 {
     // Instead of using a random initialization algorithm
-    // We always put the snake at the center of the game board
+    // We always put the snake at the center of the game mWindows
     int centerX = this->mGameBoardWidth / 2;
     int centerY = this->mGameBoardHeight / 2;
+
     for (int i = 0; i < this->mInitialSnakeLength; i ++)
     {
         this->mSnake.push_back(SnakeBody(centerX, centerY + i));
     }
-    this->mSnake.push_back(SnakeBody(centerX, centerY));
     this->mDirection = Direction::Up;
 }
-
-
 
 bool Snake::isPartOfSnake(int x, int y)
 {
@@ -46,11 +71,11 @@ bool Snake::hitWall()
     SnakeBody& head = this->mSnake[0];
     int headX = head.getX();
     int headY = head.getY();
-    if (headX < 0 || headX >= this->mGameBoardWidth)
+    if (headX <= 0 || headX >= this->mGameBoardWidth - 1)
     {
         return true;
     }
-    if (headY < 0 || headY >= this->mGameBoardHeight)
+    if (headY <= 0 || headY >= this->mGameBoardHeight - 1)
     {
         return true;
     }
@@ -77,39 +102,8 @@ bool Snake::hitSelf()
 
 bool Snake::touchFood()
 {
-    SnakeBody& head = this->mSnake[0];
-    int headX = head.getX();
-    int headY = head.getY();
-    int headXNext;
-    int headYNext;
-    switch (this->mDirection)
-    {
-        case Direction::Up:
-        {
-            headXNext = headX;
-            headYNext = headY - 1;
-            break;
-        }
-        case Direction::Down:
-        {
-            headXNext = headX;
-            headYNext = headY + 1;
-            break;
-        }
-        case Direction::Left:
-        {
-            headXNext = headX - 1;
-            headYNext = headY;
-            break;
-        }
-        case Direction::Right:
-        {
-            headXNext = headX + 1;
-            headYNext = headY;
-            break;
-        }
-    }
-    if (this->mFood == SnakeBody(headXNext, headYNext))
+    SnakeBody newHead = this->createNewHead();
+    if (this->mFood == newHead)
     {
         return true;
     }
@@ -118,35 +112,16 @@ bool Snake::touchFood()
         return false;
     }
 }
-
-bool Snake::grow()
-{
-    // Create a copy of food
-    SnakeBody newBody = this->mFood;
-    if (this->touchFood())
-    {
-        // Put the new body to the head of the snake
-        this->mSnake.insert(this->mSnake.begin(), newBody); 
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-}
-
 
 void Snake::senseFood(SnakeBody food)
 {
     this->mFood = food;
 }
 
-
 std::vector<SnakeBody>& Snake::getSnake()
 {
     return this->mSnake;
 }
-
 
 bool Snake::changeDirection(Direction newDirection)
 {
@@ -204,10 +179,82 @@ bool Snake::changeDirection(Direction newDirection)
 }
 
 
-/*
-bool Snake::moveFoward()
-{bool changeDirection(Direction newDirection);
-    SnakeBody lastBody = this->mSnake[this->mSnake.size()-1];
-    SnakeBody 
+SnakeBody Snake::createNewHead()
+{
+    SnakeBody& head = this->mSnake[0];
+    int headX = head.getX();
+    int headY = head.getY();
+    int headXNext;
+    int headYNext;
+
+    switch (this->mDirection)
+    {
+        case Direction::Up:
+        {
+            headXNext = headX;
+            headYNext = headY - 1;
+            break;
+        }
+        case Direction::Down:
+        {
+            headXNext = headX;
+            headYNext = headY + 1;
+            break;
+        }
+        case Direction::Left:
+        {
+            headXNext = headX - 1;
+            headYNext = headY;
+            break;
+        }
+        case Direction::Right:
+        {
+            headXNext = headX + 1;
+            headYNext = headY;
+            break;
+        }
+    }
+
+    SnakeBody newHead = SnakeBody(headXNext, headYNext);
+
+    return newHead;
 }
-*/
+
+/*
+ * If eat food, return true, otherwise return false
+ */
+bool Snake::moveFoward()
+{
+    if (this->touchFood())
+    {
+        SnakeBody newHead = this->mFood;
+        this->mSnake.insert(this->mSnake.begin(), newHead); 
+        return true;
+    }
+    else
+    {
+        this->mSnake.pop_back();
+        SnakeBody newHead = this->createNewHead();
+        this->mSnake.insert(this->mSnake.begin(), newHead); 
+        return false;
+    }
+}
+
+bool Snake::checkCollision()
+{
+    if (this->hitWall() || this->hitSelf())
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+
+int Snake::getLength()
+{
+    return this->mSnake.size();
+}
+
