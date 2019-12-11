@@ -14,9 +14,10 @@ public:
     void createGameBoard();
     void createInstructionBoard();
     void initializeGame();
+    void runGame();
     void createSnake();
     void createRamdonFood();
-    void renderBoard();
+    void renderBoards();
     void renderSnake();
     void renderFood();
     void renderPoints();
@@ -24,6 +25,7 @@ public:
     void controlSnake();
     void start();
     void startGame();
+    bool renderRestartMenu();
 
 private:
     // We need to have two windows
@@ -33,8 +35,7 @@ private:
     int mScreenHeight;
     int mGameBoardWidth;
     int mGameBoardHeight;
-    const int mSnakeInitialLength = 2;
-    const int mInformationHeight = 5;
+    const int mInformationHeight = 6;
     const int mInstructionWidth = 15;
     std::vector<WINDOW *> mWindows;
     // Snake information
@@ -45,7 +46,7 @@ private:
     SnakeBody mFood;
     const char mFoodSymbol = '#';
     int mPoints = 0;
-    int mDifficulty;
+    int mDifficulty = 0;
     
 };
 

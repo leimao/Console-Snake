@@ -28,6 +28,20 @@ snake.h
 memory
 -
 
+/home/leimao/GitHub/Console_Snake/main.cpp
+game.h
+/home/leimao/GitHub/Console_Snake/game.h
+
+/home/leimao/GitHub/Console_Snake/snake.cpp
+snake.h
+/home/leimao/GitHub/Console_Snake/snake.h
+string
+-
+cstdlib
+-
+iostream
+-
+
 /home/leimao/GitHub/Console_Snake/snake.h
 vector
 -

@@ -30,7 +30,7 @@ bool SnakeBody::operator == (const SnakeBody& snakeBody)
     return (this->getX() == snakeBody.getX() && this->getY() == snakeBody.getY());
 }
 
-Snake::Snake(int gameBoardWidth, int gameBoardHeight): mGameBoardWidth(gameBoardWidth), mGameBoardHeight(gameBoardHeight)
+Snake::Snake(int gameBoardWidth, int gameBoardHeight, int initialSnakeLength): mGameBoardWidth(gameBoardWidth), mGameBoardHeight(gameBoardHeight), mInitialSnakeLength(initialSnakeLength)
 {
     this->initializeSnake();
 }

@@ -29,7 +29,7 @@ class Snake
 {
 public:
     //Snake();
-    Snake(int gameBoardWidth, int gameBoardHeight);
+    Snake(int gameBoardWidth, int gameBoardHeight, int initialSnakeLength);
     // Set random seed
     // void setRandomSeed(unsigned int seed);
     // Initialize snake
@@ -55,7 +55,7 @@ private:
     const int mGameBoardWidth;
     const int mGameBoardHeight;
     // Snake information
-    const int mInitialSnakeLength = 3;
+    const int mInitialSnakeLength;
     Direction mDirection;
     SnakeBody mFood;
     std::vector<SnakeBody> mSnake;
