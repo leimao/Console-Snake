@@ -19,7 +19,11 @@ public:
     void renderBoard();
     void renderSnake();
     void renderFood();
+    void renderPoints();
+    void gameCycle();
+    void controlSnake();
     void start();
+    void startGame();
 
 private:
     // We need to have two windows
@@ -40,6 +44,8 @@ private:
     std::unique_ptr<Snake> mPtrSnake;
     SnakeBody mFood;
     const char mFoodSymbol = '#';
+    int mPoints = 0;
+    int mDifficulty;
     
 };
 

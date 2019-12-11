@@ -4,6 +4,7 @@
 
 #include <iostream>
 
+
 #include <chrono>
 #include <thread>
 //#include <unistd.h>
@@ -37,8 +38,6 @@ void Game::createGameBoard()
     int startY = this->mInformationHeight;
     int startX = 0;
     this->mWindows[1] = newwin(this->mScreenHeight - this->mInformationHeight, this->mScreenWidth - this->mInstructionWidth, startY, startX);
-    //mvwprintw(this->mWindows[1], 1, 1, "Welcome to Snake Game!");
-    //mvwprintw(this->mWindows[1], 2, 1, "Author: Lei Mao");
 }
 
 
@@ -58,11 +57,19 @@ void Game::createInstructionBoard()
     mvwprintw(this->mWindows[2], 11, 1, "Points");
 }
 
+void Game::renderPoints()
+{
+    std::string pointString = std::to_string(this->mPoints);
+    mvwprintw(this->mWindows[2], 12, 1, pointString.c_str());
+    wrefresh(this->mWindows[2]);
+}
+
 void Game::initializeGame()
 {
     this->mPtrSnake.reset(new Snake(this->mGameBoardWidth, this->mGameBoardHeight));
     this->createRamdonFood();
     this->mPtrSnake->senseFood(this->mFood);
+    this->mPoints = 0;
 }
 
 void Game::createRamdonFood()
@@ -106,6 +113,40 @@ void Game::renderSnake()
         mvwaddch(this->mWindows[1], snake[i].getY(), snake[i].getX(), this->mSnakeSymbol);
     }
     wrefresh(this->mWindows[1]);
+}
+
+void Game::controlSnake()
+{
+    int key;
+    key=getch();
+    switch(key)
+    {
+        case KEY_LEFT:
+        {
+            //std::cout << "left" << std::endl;
+            this->mPtrSnake->changeDirection(Direction::Left);
+            break;
+        }
+        case KEY_UP:
+        {
+            this->mPtrSnake->changeDirection(Direction::Up);
+            break;
+        }
+        case KEY_DOWN:
+        {
+            this->mPtrSnake->changeDirection(Direction::Down);
+            break;
+        }
+        case KEY_RIGHT:
+        {
+            this->mPtrSnake->changeDirection(Direction::Right);
+            break;
+        }
+        default:
+        {
+            break;
+        }
+    }
 }
 
 
@@ -166,21 +207,26 @@ void Game::renderBoard()
         this->renderSnake();
         if (eatFood == true)
         {
+            this->mPoints += 1;
             this->createRamdonFood();
             this->mPtrSnake->senseFood(this->mFood);
         }
         this->renderFood();
+        this->renderPoints();
 
         std::this_thread::sleep_for(std::chrono::milliseconds(50));
+
+        refresh();
     }
 
     //std::this_thread::sleep_for(std::chrono::milliseconds(x));
     //this->renderSnake();
     refresh();
     // Get a character from keyboard before exit.
-    getch();
-    endwin();
+    //getch();
+    //endwin();
 }
+
 
 
 void Game::start()
@@ -189,6 +235,12 @@ void Game::start()
     this->createGameBoard();
     this->createInstructionBoard();
     this->initializeGame();
-
-    this->renderBoard();
+    while (true)
+    {
+        this->renderBoard();
+        this->initializeGame();
+    }
+    // Get a character from keyboard before exit.
+    getch();
+    endwin();
 }
