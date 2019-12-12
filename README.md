@@ -14,13 +14,13 @@ Lei Mao
 
 ## Usages
 
-### Dependencies
+### Install Dependencies
 
 ```bash
 $ sudo apt-get install libncurses-dev cmake
 ```
 
-### Installation
+### Install the Game
 
 ```bash
 $ mkdir -p build
