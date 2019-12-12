@@ -139,7 +139,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=SENET
+CMAKE_PROJECT_NAME:STATIC=SNAKE
 
 //Value Computed by CMake
 CMAKE_PROJECT_VERSION:STATIC=0.0.1
@@ -220,6 +220,12 @@ SENET_BINARY_DIR:STATIC=/home/leimao/GitHub/Console_Snake/build
 
 //Value Computed by CMake
 SENET_SOURCE_DIR:STATIC=/home/leimao/GitHub/Console_Snake
+
+//Value Computed by CMake
+SNAKE_BINARY_DIR:STATIC=/home/leimao/GitHub/Console_Snake/build
+
+//Value Computed by CMake
+SNAKE_SOURCE_DIR:STATIC=/home/leimao/GitHub/Console_Snake
 
 
 ########################

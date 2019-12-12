@@ -10,21 +10,24 @@ class Game
 {
 public:
     Game();
+    ~Game();
     void createInformationBoard();
+    void renderInformationBoard() const;
     void createGameBoard();
+    void renderGameBoard() const;
     void createInstructionBoard();
+    void renderInstructionBoard() const;
     void initializeGame();
     void runGame();
-    void createSnake();
     void createRamdonFood();
-    void renderBoards();
-    void renderSnake();
-    void renderFood();
-    void renderPoints();
-    void renderDifficulty();
-    void controlSnake();
+    void renderBoards() const;
+    void renderSnake() const;
+    void renderFood() const;
+    void renderPoints() const;
+    void renderDifficulty() const;
+    void controlSnake() const;
     void startGame();
-    bool renderRestartMenu();
+    bool renderRestartMenu() const;
     void adjustDelay();
 
 private:
@@ -49,7 +52,6 @@ private:
     int mDifficulty = 0;
     int mBaseDelay = 100;
     int mDelay;
-    
 };
 
 #endif

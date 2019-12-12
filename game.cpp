@@ -24,13 +24,33 @@ Game::Game()
     getmaxyx(stdscr, this->mScreenHeight, this->mScreenWidth);
     this->mGameBoardWidth = this->mScreenWidth - this->mInstructionWidth;
     this->mGameBoardHeight = this->mScreenHeight - this->mInformationHeight;
+
+    this->createInformationBoard();
+    this->createGameBoard();
+    this->createInstructionBoard();
 }
+
+
+
+Game::~Game()
+{
+    for (int i = 0; i < this->mWindows.size(); i ++)
+    {
+        delwin(this->mWindows[i]);
+    }
+    endwin();
+}
+
 
 void Game::createInformationBoard()
 {
     int startY = 0;
     int startX = 0;
     this->mWindows[0] = newwin(this->mInformationHeight, this->mScreenWidth, startY, startX);
+}
+
+void Game::renderInformationBoard() const
+{
     mvwprintw(this->mWindows[0], 1, 1, "Welcome to Snake Game!");
     mvwprintw(this->mWindows[0], 2, 1, "Author: Lei Mao");
     mvwprintw(this->mWindows[0], 3, 1, "Website: https://github.com/leimao/");
@@ -43,15 +63,22 @@ void Game::createGameBoard()
     int startY = this->mInformationHeight;
     int startX = 0;
     this->mWindows[1] = newwin(this->mScreenHeight - this->mInformationHeight, this->mScreenWidth - this->mInstructionWidth, startY, startX);
-    wrefresh(this->mWindows[1]);
 }
 
+void Game::renderGameBoard() const
+{
+    wrefresh(this->mWindows[1]);
+}
 
 void Game::createInstructionBoard()
 {
     int startY = this->mInformationHeight;
     int startX = this->mScreenWidth - this->mInstructionWidth;
     this->mWindows[2] = newwin(this->mScreenHeight - this->mInformationHeight, this->mInstructionWidth, startY, startX);
+}
+
+void Game::renderInstructionBoard() const
+{
     mvwprintw(this->mWindows[2], 1, 1, "Manual");
 
     mvwprintw(this->mWindows[2], 3, 1, "Up: W");
@@ -66,7 +93,7 @@ void Game::createInstructionBoard()
 }
 
 
-bool Game::renderRestartMenu()
+bool Game::renderRestartMenu() const
 {
     WINDOW * menu;
     int width = this->mGameBoardWidth * 0.5;
@@ -140,14 +167,14 @@ bool Game::renderRestartMenu()
     
 }
 
-void Game::renderPoints()
+void Game::renderPoints() const
 {
     std::string pointString = std::to_string(this->mPoints);
     mvwprintw(this->mWindows[2], 12, 1, pointString.c_str());
     wrefresh(this->mWindows[2]);
 }
 
-void Game::renderDifficulty()
+void Game::renderDifficulty() const
 {
     std::string difficultyString = std::to_string(this->mDifficulty);
     mvwprintw(this->mWindows[2], 9, 1, difficultyString.c_str());
@@ -187,13 +214,13 @@ void Game::createRamdonFood()
     this->mFood = availableGrids[random_idx];
 }
 
-void Game::renderFood()
+void Game::renderFood() const
 {
     mvwaddch(this->mWindows[1], this->mFood.getY(), this->mFood.getX(), this->mFoodSymbol);
     wrefresh(this->mWindows[1]);
 }
 
-void Game::renderSnake()
+void Game::renderSnake() const
 {
     int snakeLength = this->mPtrSnake->getLength();
     std::vector<SnakeBody>& snake = this->mPtrSnake->getSnake();
@@ -204,7 +231,7 @@ void Game::renderSnake()
     wrefresh(this->mWindows[1]);
 }
 
-void Game::controlSnake()
+void Game::controlSnake() const
 {
     int key;
     key = getch();
@@ -245,15 +272,15 @@ void Game::controlSnake()
     }
 }
 
-void Game::renderBoards()
+void Game::renderBoards() const
 {
     for (int i = 0; i < this->mWindows.size(); i ++)
     {
         werase(this->mWindows[i]);
     }
-    this->createInformationBoard();
-    this->createGameBoard();
-    this->createInstructionBoard();
+    this->renderInformationBoard();
+    this->renderGameBoard();
+    this->renderInstructionBoard();
     for (int i = 0; i < this->mWindows.size(); i ++)
     {
         box(this->mWindows[i], 0, 0);
@@ -308,9 +335,6 @@ void Game::runGame()
 void Game::startGame()
 {
     refresh();
-    this->createInformationBoard();
-    this->createGameBoard();
-    this->createInstructionBoard();
     bool choice;
     while (true)
     {
@@ -323,7 +347,4 @@ void Game::startGame()
             break;
         }
     }
-    // Get a character from keyboard before exit.
-    getch();
-    endwin();
 }
