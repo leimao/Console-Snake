@@ -1,6 +1,7 @@
 #include "game.h"
 #include <string>
 #include <iostream>
+#include <cmath> 
 
 // For terminal delay
 #include <chrono>
@@ -24,7 +25,6 @@ Game::Game()
     this->mGameBoardWidth = this->mScreenWidth - this->mInstructionWidth;
     this->mGameBoardHeight = this->mScreenHeight - this->mInformationHeight;
 }
-
 
 void Game::createInformationBoard()
 {
@@ -70,12 +70,11 @@ bool Game::renderRestartMenu()
 {
     WINDOW * menu;
     int width = this->mGameBoardWidth * 0.5;
-    int heigt = this->mGameBoardHeight * 0.5;
+    int height = this->mGameBoardHeight * 0.5;
     int startX = this->mGameBoardWidth * 0.25;
     int startY = this->mGameBoardHeight * 0.25 + this->mInformationHeight;
 
-    menu = newwin(heigt, width, startY, startX);
-    //menu = newwin(10, 10, 5, 5);
+    menu = newwin(height, width, startY, startX);
     box(menu, 0, 0);
     std::vector<std::string> menuItems = {"Restart", "Quit"};
 
@@ -148,12 +147,21 @@ void Game::renderPoints()
     wrefresh(this->mWindows[2]);
 }
 
+void Game::renderDifficulty()
+{
+    std::string difficultyString = std::to_string(this->mDifficulty);
+    mvwprintw(this->mWindows[2], 9, 1, difficultyString.c_str());
+    wrefresh(this->mWindows[2]);
+}
+
 void Game::initializeGame()
 {
     this->mPtrSnake.reset(new Snake(this->mGameBoardWidth, this->mGameBoardHeight, this->mInitialSnakeLength));
     this->createRamdonFood();
     this->mPtrSnake->senseFood(this->mFood);
+    this->mDifficulty = 0;
     this->mPoints = 0;
+    this->mDelay = this->mBaseDelay;
 }
 
 void Game::createRamdonFood()
@@ -179,14 +187,11 @@ void Game::createRamdonFood()
     this->mFood = availableGrids[random_idx];
 }
 
-
-
 void Game::renderFood()
 {
     mvwaddch(this->mWindows[1], this->mFood.getY(), this->mFood.getX(), this->mFoodSymbol);
     wrefresh(this->mWindows[1]);
 }
-
 
 void Game::renderSnake()
 {
@@ -240,9 +245,15 @@ void Game::controlSnake()
     }
 }
 
-
 void Game::renderBoards()
 {
+    for (int i = 0; i < this->mWindows.size(); i ++)
+    {
+        werase(this->mWindows[i]);
+    }
+    this->createInformationBoard();
+    this->createGameBoard();
+    this->createInstructionBoard();
     for (int i = 0; i < this->mWindows.size(); i ++)
     {
         box(this->mWindows[i], 0, 0);
@@ -251,14 +262,23 @@ void Game::renderBoards()
 }
 
 
+void Game::adjustDelay()
+{
+    this->mDifficulty = this->mPoints / 10;
+    if (mPoints % 10 == 0)
+    {
+        this->mDelay = this->mBaseDelay * pow(0.9, this->mDifficulty);
+    }
+}
+
 void Game::runGame()
 {
     bool moveSuccess;
     int key;
     while (true)
     {
-        werase(this->mWindows[1]);
         this->controlSnake();
+        werase(this->mWindows[1]);
         box(this->mWindows[1], 0, 0);
         
         bool eatFood = this->mPtrSnake->moveFoward();
@@ -273,30 +293,35 @@ void Game::runGame()
             this->mPoints += 1;
             this->createRamdonFood();
             this->mPtrSnake->senseFood(this->mFood);
+            this->adjustDelay();
         }
         this->renderFood();
+        this->renderDifficulty();
         this->renderPoints();
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(50));
+        std::this_thread::sleep_for(std::chrono::milliseconds(this->mDelay));
 
         refresh();
     }
 }
 
-
-
-void Game::start()
+void Game::startGame()
 {
     refresh();
     this->createInformationBoard();
     this->createGameBoard();
     this->createInstructionBoard();
+    bool choice;
     while (true)
     {
         this->renderBoards();
         this->initializeGame();
         this->runGame();
-        this->renderRestartMenu();
+        choice = this->renderRestartMenu();
+        if (choice == false)
+        {
+            break;
+        }
     }
     // Get a character from keyboard before exit.
     getch();

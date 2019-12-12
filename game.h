@@ -21,11 +21,11 @@ public:
     void renderSnake();
     void renderFood();
     void renderPoints();
-    void gameCycle();
+    void renderDifficulty();
     void controlSnake();
-    void start();
     void startGame();
     bool renderRestartMenu();
+    void adjustDelay();
 
 private:
     // We need to have two windows
@@ -47,6 +47,8 @@ private:
     const char mFoodSymbol = '#';
     int mPoints = 0;
     int mDifficulty = 0;
+    int mBaseDelay = 100;
+    int mDelay;
     
 };
 
