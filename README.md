@@ -37,6 +37,7 @@ $ ./main
 
 ### Demo
 
+![](demo/snake.gif)
 
 ## To-Do List
 
