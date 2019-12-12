@@ -29,6 +29,8 @@ public:
     void startGame();
     bool renderRestartMenu() const;
     void adjustDelay();
+    void loadLeadBoard();
+    void updateLeadBoard();
 
 private:
     // We need to have two windows
