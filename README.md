@@ -41,5 +41,5 @@ $ ./main
 
 ## To-Do List
 
-- [ ] Add record board.
-- [ ] Add background music.
+- [ ] Add record board
+- [ ] Add background music
