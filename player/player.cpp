@@ -5,11 +5,14 @@
 
 #include <alsa/asoundlib.h>
 
+#define oops(func) (fprintf(stderr, "%s\n", func), exit(1))
+
 int main(int argc, char** argv) {
 
     //char filename[] = "ChillingMusic.wav";
     //char filename[] = "file_example_MP3_1MG.mp3";
-    char filename[] = "BetterSounds.wav";
+    //char filename[] = "BetterSounds.wav";
+    char filename[] = "sawing-wood-daniel_simon.wav";
 
     const int out_channels = 2, out_samples = 512, sample_rate = 44100;
 
@@ -18,6 +21,11 @@ int main(int argc, char** argv) {
 
     SNDFILE* sfile = sf_open(filename, SFM_READ, &sinfo);
 
+    if (!sfile) {
+        fprintf(stderr, "sf_open()\n");
+        exit(1);
+    }
+
     std::cout << sinfo.channels << std::endl;
     std::cout << sinfo.samplerate << std::endl;
     std::cout << sinfo.frames << std::endl;
@@ -25,9 +33,12 @@ int main(int argc, char** argv) {
     //float buffer[out_samples * out_channels] = {};
     //float buffer[10000000 * out_channels] = {};
 
+    //float* buffer = new float[sinfo.frames * out_channels];
+
     float* buffer = new float[sinfo.frames * out_channels];
 
     void* p = buffer;
+    std::cout << "XXXXXXXXXXXXX";
 
     
     snd_pcm_t* pcm = NULL;
@@ -47,12 +58,19 @@ int main(int argc, char** argv) {
     
     const int buf_sz = period_size * out_channels;
 
+    std::cout << "XXXXXXXXXXXXX";
+
     sf_count_t ret = sf_readf_float(sfile, buffer, sinfo.frames);
+    if (ret < 0) {
+        oops("snd_pcm_writei");
+    }
+
 
     for (int i = 0; i < sinfo.frames * out_channels; i += buf_sz)
     {
         snd_pcm_writei(pcm, buffer + i, period_size);
     }
+
 
 
     sf_close(sfile);
