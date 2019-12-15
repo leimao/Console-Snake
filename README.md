@@ -39,7 +39,12 @@ $ ./main
 
 ![](demo/snake.gif)
 
+## References
+
+* [CMake Dependency Handling](https://foonathan.net/2016/07/cmake-dependency-handling/)
+
 ## To-Do List
 
 - [ ] Add record board
 - [ ] Add background music
+
