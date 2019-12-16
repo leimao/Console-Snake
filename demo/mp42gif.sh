@@ -1,0 +1,1 @@
+ffmpeg -i console_snake_demo.mp4 -ss 0 -t 20 -vf fps=10,scale=960:-1 -threads 8 snake_demo.gif
