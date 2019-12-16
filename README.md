@@ -12,7 +12,7 @@ The Console Snake was implemented using C++ and the libraries `libncurses` and `
 * libncurses 6.1+
 * [libcplayer 0.0.1](https://github.com/leimao/Console_Player)
 
-## Usages
+## Installation
 
 ### Installation of Dependencies
 
@@ -35,16 +35,16 @@ $ make
 $ make install
 ```
 
-### Running the Game
+## Usages
 
-#### Playing the Game Using Default BGM
+### Playing the Game Using Default BGM
 
 ```bash
 $ cd bin/
 $ ./main
 ```
 
-#### Playing the Game Using Custom BGM
+### Playing the Game Using Custom BGM
 
 The user is also allowed to use custom BGMs.
 
@@ -55,9 +55,15 @@ $ ./main [bgm_sound_file]
 
 Currently the game only supports `wav`, `ogg`, and `flac` audio formats.
 
-### Demo
+## Demo
 
 ![](demo/snake.gif)
+
+
+## Notice
+
+If you have encountered any bug, or have any suggestions to improve, please open an issue in the repository.
+
 
 ## References
 
@@ -68,4 +74,3 @@ Currently the game only supports `wav`, `ogg`, and `flac` audio formats.
 
 - [ ] Add record board
 - [x] Add background music
-
