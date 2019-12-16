@@ -14,13 +14,15 @@ The Console Snake was implemented using C++ and the libraries `libncurses` and `
 
 ## Usages
 
-### Install Dependencies
+### Installation of Dependencies
 
 ```bash
 $ sudo apt-get install libncurses-dev cmake
 ```
 
-### Install the Game
+### Installation of the Game
+
+Because the installation requires to use `git submodule`, please `git clone` instead of `download` the repository.
 
 ```bash
 $ git clone https://github.com/leimao/Console_Snake.git
@@ -33,12 +35,25 @@ $ make
 $ make install
 ```
 
-### Run the Game
+### Running the Game
+
+#### Playing the Game Using Default BGM
 
 ```bash
 $ cd bin/
 $ ./main
 ```
+
+#### Playing the Game Using Custom BGM
+
+The user is also allowed to use custom BGMs.
+
+```bash
+$ cd bin/
+$ ./main [bgm_sound_file]
+```
+
+Currently the game only supports `wav`, `ogg`, and `flac` audio formats.
 
 ### Demo
 
