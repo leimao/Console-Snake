@@ -17,10 +17,7 @@ endif()
 
 # Built and add subdirectory
 add_subdirectory(${CPLAYER_DIR})
-
-add_executable(main main.cpp snake.cpp game.cpp)
-target_include_directories(main PRIVATE ${CMAKE_SOURCE_DIR}/modules/Console_Player/src)
-target_link_libraries(main PRIVATE curses cplayer pthread)
+add_subdirectory(src)
 
 SET(CMAKE_INSTALL_PREFIX .)
 install(TARGETS main DESTINATION bin)
