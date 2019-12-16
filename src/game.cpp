@@ -306,7 +306,7 @@ void Game::adjustDelay()
     this->mDifficulty = this->mPoints / 5;
     if (mPoints % 5 == 0)
     {
-        this->mDelay = this->mBaseDelay * pow(0.9, this->mDifficulty);
+        this->mDelay = this->mBaseDelay * pow(0.75, this->mDifficulty);
     }
 }
 
