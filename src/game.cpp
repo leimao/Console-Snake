@@ -66,7 +66,7 @@ void Game::renderInformationBoard() const
     mvwprintw(this->mWindows[0], 1, 1, "Welcome to Snake Game!");
     mvwprintw(this->mWindows[0], 2, 1, "Author: Lei Mao");
     mvwprintw(this->mWindows[0], 3, 1, "Website: https://github.com/leimao/");
-    mvwprintw(this->mWindows[0], 4, 1, "Implemented using C++ and ncurses library.");
+    mvwprintw(this->mWindows[0], 4, 1, "Implemented using C++, libncurses, and libcplayer library.");
     wrefresh(this->mWindows[0]);
 }
 
