@@ -9,25 +9,20 @@ set(CMAKE_CXX_STANDARD 11)
 # Check if CPlayer submodule has been git cloned
 find_path(CPLAYER_DIR src/cplayer.h ${CMAKE_SOURCE_DIR}/modules/Console_Player/)
 if((NOT CPLAYER_DIR) OR (NOT EXISTS ${CPLAYER_DIR}))
-    # Could not confirm the existence of CPlayer in the project directory
+    # Inform the user we could not confirm the existence of CPlayer in the project directory
     message("Could not find CPlayer!")
+    # Download the submodule
     execute_process(COMMAND git submodule update --init --recursive)
+    # Set the subdirectory properly
+    set(CPLAYER_DIR ${CMAKE_SOURCE_DIR}/modules/Console_Player/)
 endif()
 
+# Built and add subdirectory
+add_subdirectory(${CPLAYER_DIR})
 
-
-#message(${CPLAYER_DIR})
-
-
-#find_package(CONSOLE_SOUND_PLAYER)
-
-
-message(${CMAKE_SOURCE_DIR})
-if(NOT EXISTS ${CMAKE_SOURCE_DIR}/modules/Console_Player/)
-    message("Not found CPlayer!")
-endif()
 
 
 
 add_executable(main main.cpp snake.cpp game.cpp)
-target_link_libraries(main PRIVATE curses)
+target_include_directories(main PRIVATE ${CMAKE_SOURCE_DIR}/modules/Console_Player/src)
+target_link_libraries(main PRIVATE curses cplayer)

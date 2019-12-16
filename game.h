@@ -6,6 +6,8 @@
 #include "snake.h"
 #include <memory>
 
+#include "cplayer.h"
+
 class Game
 {
 public:
@@ -54,6 +56,7 @@ private:
     int mDifficulty = 0;
     int mBaseDelay = 100;
     int mDelay;
+    std::unique_ptr<CPlayer> mPtrPlayer;
 };
 
 #endif
