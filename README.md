@@ -37,6 +37,10 @@ $ make install
 
 ## Usages
 
+### Game Rules
+
+Control the snake to eat food as much as possible. You get one point for every food your snake eat. The level of difficulty would increase every 5 points you get.
+
 ### Playing the Game Using Default BGM
 
 ```bash
@@ -55,9 +59,10 @@ $ ./main [bgm_sound_file]
 
 Currently the game only supports `wav`, `ogg`, and `flac` audio formats.
 
+
 ## Demo
 
-![](demo/snake.gif)
+![](https://www.youtube.com/watch?v=6eUeRn3Mdg4)
 
 
 ## Notice
