@@ -62,8 +62,7 @@ Currently the game only supports `wav`, `ogg`, and `flac` audio formats.
 
 ## Demo
 
-![Demo](https://www.youtube.com/watch?v=6eUeRn3Mdg4)
-
+[![Console Snake Demo](https://www.youtube.com/watch?v=6eUeRn3Mdg4/0.jpg)](https://www.youtube.com/watch?v=6eUeRn3Mdg4 "Console Snake Demo")
 
 ## Notice
 
