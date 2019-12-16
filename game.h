@@ -33,6 +33,8 @@ public:
     void adjustDelay();
     void loadLeadBoard();
     void updateLeadBoard();
+    void setBGM(std::string filename);
+    void playKillableBGM();
 
 private:
     // We need to have two windows

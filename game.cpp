@@ -28,9 +28,9 @@ Game::Game()
     this->createInformationBoard();
     this->createGameBoard();
     this->createInstructionBoard();
+
+    this->mPtrPlayer.reset(new CPlayer());
 }
-
-
 
 Game::~Game()
 {
@@ -39,6 +39,18 @@ Game::~Game()
         delwin(this->mWindows[i]);
     }
     endwin();
+}
+
+void Game::setBGM(std::string filename)
+{
+    this->mPtrPlayer->load(filename.c_str());
+}
+
+void Game::playKillableBGM()
+{
+    bool killSignal = false;
+    std::thread t3(&CPlayer::loopAsync, this->mPtrPlayer.get(), std::ref(killSignal));
+    t3.join();
 }
 
 
@@ -335,16 +347,23 @@ void Game::runGame()
 void Game::startGame()
 {
     refresh();
+    // Bgm kill signal
+    bool killSignal = false;
     bool choice;
     while (true)
     {
+        std::thread t(&CPlayer::loopAsync, this->mPtrPlayer.get(), std::ref(killSignal));
         this->renderBoards();
         this->initializeGame();
         this->runGame();
+        killSignal = true;
+        t.join();
         choice = this->renderRestartMenu();
         if (choice == false)
         {
             break;
         }
+        // Reset bgm kill signal
+        killSignal = false;
     }
 }
