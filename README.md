@@ -4,7 +4,7 @@ Lei Mao
 
 ## Introduction
 
-The Console Snake was implemented using C++ and the libraries `libncurses` and `libcplayer`. `libncurses` (new curses) is a programming library providing an application programming interface (API) that allows the programmer to write text-based user interfaces in a terminal-independent manner. `libcplayer` (console player) is a C++ library for playing background sound asynchronously in C++ programs.
+The Console Snake was implemented using C++ and the libraries `libncurses` and `libcplayer`. `libncurses` (new curses) is a programming library providing an application programming interface (API) that allows the programmer to write text-based user interfaces in a terminal-independent manner. [`libcplayer` (console player)]((https://github.com/leimao/Console_Player)) is a C++ library for playing background sound asynchronously in C++ programs.
 
 ## Dependencies
 
