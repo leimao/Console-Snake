@@ -303,8 +303,8 @@ void Game::renderBoards() const
 
 void Game::adjustDelay()
 {
-    this->mDifficulty = this->mPoints / 10;
-    if (mPoints % 10 == 0)
+    this->mDifficulty = this->mPoints / 5;
+    if (mPoints % 5 == 0)
     {
         this->mDelay = this->mBaseDelay * pow(0.9, this->mDifficulty);
     }
