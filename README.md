@@ -66,7 +66,7 @@ Currently the game only supports `wav`, `ogg`, and `flac` audio formats.
 
 For full demo with sound, please click the demo image and watch the YouTube video.
 
-## Notice
+## Feedbacks
 
 If you have encountered any bug, or have any suggestions to improve, please open an issue in the repository.
 
