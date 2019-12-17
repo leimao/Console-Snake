@@ -68,7 +68,7 @@ For full demo with sound, please click the demo image and watch the YouTube vide
 
 ## Feedbacks
 
-If you have encountered any bug, or have any suggestions to improve, please open an issue in the repository.
+If you have encountered any bug, or have any suggestions for improvements, please open an issue ticket in the repository.
 
 
 ## References
