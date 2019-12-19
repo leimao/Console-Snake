@@ -12,7 +12,7 @@ The Console Snake game with background music was implemented using C++ and the l
 * libncurses 6.1+
 * [`libsndfile`](https://github.com/erikd/libsndfile)
 * [`libasound`](https://github.com/alsa-project/alsa-lib)
-* [libcplayer`](https://github.com/leimao/Console_Player)
+* [`libcplayer`](https://github.com/leimao/Console_Player)
 
 ## Installation
 
