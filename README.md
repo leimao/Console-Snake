@@ -12,6 +12,30 @@ The Console Snake game with background music was implemented using C++ and the l
 * libncurses 6.1+
 * [libcplayer 0.0.1](https://github.com/leimao/Console_Player)
 
+## Files
+
+```
+.
+├── audios
+│   └── bgm.wav
+├── CMakeLists.txt
+├── demo
+│   ├── console_snake_demo.gif
+│   ├── console_snake_demo.mp4
+│   └── mp42gif.sh
+├── LICENSE.md
+├── modules
+│   └── Console_Player
+├── README.md
+└── src
+    ├── CMakeLists.txt
+    ├── game.cpp
+    ├── game.h
+    ├── main.cpp
+    ├── snake.cpp
+    └── snake.h
+```
+
 ## Installation
 
 ### Installation of Dependencies
