@@ -8,9 +8,11 @@ The Console Snake game with background music was implemented using C++ and the l
 
 ## Dependencies
 
-* CMake 3.0.0+
+* CMake 3.13.0+
 * libncurses 6.1+
-* [libcplayer 0.0.1](https://github.com/leimao/Console_Player)
+* [`libsndfile`](https://github.com/erikd/libsndfile)
+* [`libasound`](https://github.com/alsa-project/alsa-lib)
+* [`libcplayer`](https://github.com/leimao/Console_Player)
 
 ## Files
 
@@ -38,10 +40,14 @@ The Console Snake game with background music was implemented using C++ and the l
 
 ## Installation
 
+### Installation of CMake
+
+Check out [the installation guide from Kitware](https://apt.kitware.com/).
+
 ### Installation of Dependencies
 
 ```bash
-$ sudo apt-get install libncurses-dev cmake
+$ sudo apt-get install libncurses-dev libsndfile-dev libasound2-dev
 ```
 
 ### Installation of the Game
