@@ -108,5 +108,6 @@ If you have encountered any bug, or have any suggestions for improvements, pleas
 
 ## To-Do List
 
-- [ ] Add record board
+- [x] Add leader board
 - [x] Add background music
+- [ ] Allow user to save player name to the leader board
