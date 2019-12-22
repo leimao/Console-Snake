@@ -7,6 +7,9 @@
 #include <chrono>
 #include <thread>
 
+#include <fstream>
+#include <algorithm> 
+
 Game::Game()
 {
     // Separate the screen to three windows
@@ -30,6 +33,9 @@ Game::Game()
     this->createInstructionBoard();
 
     this->mPtrPlayer.reset(new CPlayer());
+
+    // Initialize the leader board to be all zeros
+    this->mLeaderBoard.assign(this->mNumLeaders, 0);
 }
 
 Game::~Game()
@@ -100,10 +106,30 @@ void Game::renderInstructionBoard() const
 
     mvwprintw(this->mWindows[2], 8, 1, "Difficulty");
     mvwprintw(this->mWindows[2], 11, 1, "Points");
-    
+
     wrefresh(this->mWindows[2]);
 }
 
+
+void Game::renderLeaderBoard() const
+{
+    // If there is not too much space, skip rendering the leader board 
+    if (this->mScreenHeight - this->mInformationHeight - 14 - 2 < 3 * 2)
+    {
+        return;
+    }
+    mvwprintw(this->mWindows[2], 14, 1, "Leader Board");
+    std::string pointString;
+    std::string rank;
+    for (int i = 0; i < std::min(this->mNumLeaders, this->mScreenHeight - this->mInformationHeight - 14 - 2); i ++)
+    {
+        pointString = std::to_string(this->mLeaderBoard[i]);
+        rank = "#" + std::to_string(i + 1) + ":";
+        mvwprintw(this->mWindows[2], 14 + (i + 1), 1, rank.c_str());
+        mvwprintw(this->mWindows[2], 14 + (i + 1), 5, pointString.c_str());
+    }
+    wrefresh(this->mWindows[2]);
+}
 
 bool Game::renderRestartMenu() const
 {
@@ -165,6 +191,7 @@ bool Game::renderRestartMenu() const
         {
             break;
         }
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
     delwin(menu);
 
@@ -298,6 +325,7 @@ void Game::renderBoards() const
         box(this->mWindows[i], 0, 0);
         wrefresh(this->mWindows[i]);
     }
+    this->renderLeaderBoard();
 }
 
 
@@ -353,9 +381,12 @@ void Game::startGame()
     while (true)
     {
         std::thread t(&CPlayer::loopAsync, this->mPtrPlayer.get(), std::ref(killSignal));
+        this->readLeaderBoard();
         this->renderBoards();
         this->initializeGame();
         this->runGame();
+        this->updateLeaderBoard();
+        this->writeLeaderBoard();
         killSignal = true;
         t.join();
         choice = this->renderRestartMenu();
@@ -367,3 +398,65 @@ void Game::startGame()
         killSignal = false;
     }
 }
+
+// https://en.cppreference.com/w/cpp/io/basic_fstream
+bool Game::readLeaderBoard()
+{
+    std::fstream fhand(this->mRecordBoardFilePath, fhand.binary | fhand.in);
+    if (!fhand.is_open())
+    {
+        return false;
+    }
+    int temp;
+    int i = 0;
+    while ((!fhand.eof()) && (i < mNumLeaders))
+    {
+        fhand.read(reinterpret_cast<char*>(&temp), sizeof(temp));
+        this->mLeaderBoard[i] = temp;
+        i ++;
+    }
+    fhand.close();
+    return true;
+}
+
+bool Game::updateLeaderBoard()
+{
+    bool updated = false;
+    int newScore = this->mPoints;
+    for (int i = 0; i < this->mNumLeaders; i ++)
+    {
+        if (this->mLeaderBoard[i] >= this->mPoints)
+        {
+            continue;
+        }
+        int oldScore = this->mLeaderBoard[i];
+        this->mLeaderBoard[i] = newScore;
+        newScore = oldScore;
+        updated = true;
+    }
+    return updated;
+}
+
+bool Game::writeLeaderBoard()
+{
+    // trunc: clear the data file
+    std::fstream fhand(this->mRecordBoardFilePath, fhand.binary | fhand.trunc | fhand.out);
+    if (!fhand.is_open())
+    {
+        return false;
+    }
+    for (int i = 0; i < this->mNumLeaders; i ++)
+    {
+        fhand.write(reinterpret_cast<char*>(&this->mLeaderBoard[i]), sizeof(this->mLeaderBoard[i]));;
+    }
+    fhand.close();
+    return true;
+}
+
+
+
+
+
+
+
+

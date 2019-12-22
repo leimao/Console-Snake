@@ -35,6 +35,10 @@ public:
     void updateLeadBoard();
     void setBGM(std::string filename);
     void playKillableBGM();
+    bool readLeaderBoard();
+    bool updateLeaderBoard();
+    bool writeLeaderBoard();
+    void renderLeaderBoard() const;
 
 private:
     // We need to have two windows
@@ -45,7 +49,7 @@ private:
     int mGameBoardWidth;
     int mGameBoardHeight;
     const int mInformationHeight = 6;
-    const int mInstructionWidth = 15;
+    const int mInstructionWidth = 18;
     std::vector<WINDOW *> mWindows;
     // Snake information
     const int mInitialSnakeLength = 2;
@@ -59,6 +63,9 @@ private:
     int mBaseDelay = 100;
     int mDelay;
     std::unique_ptr<CPlayer> mPtrPlayer;
+    const std::string mRecordBoardFilePath = "record.dat";
+    std::vector<int> mLeaderBoard;
+    const int mNumLeaders = 3;
 };
 
 #endif
