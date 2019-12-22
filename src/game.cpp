@@ -113,12 +113,20 @@ void Game::renderInstructionBoard() const
 
 void Game::renderLeaderBoard() const
 {
+    // If there is not too much space, skip rendering the leader board 
+    if (this->mScreenHeight - this->mInformationHeight - 14 - 2 < 3 * 2)
+    {
+        return;
+    }
     mvwprintw(this->mWindows[2], 14, 1, "Leader Board");
     std::string pointString;
+    std::string rank;
     for (int i = 0; i < std::min(this->mNumLeaders, this->mScreenHeight - this->mInformationHeight - 14 - 2); i ++)
     {
         pointString = std::to_string(this->mLeaderBoard[i]);
-        mvwprintw(this->mWindows[2], 14 + (i + 1), 1, pointString.c_str());
+        rank = "#" + std::to_string(i + 1) + ":";
+        mvwprintw(this->mWindows[2], 14 + (i + 1), 1, rank.c_str());
+        mvwprintw(this->mWindows[2], 14 + (i + 1), 5, pointString.c_str());
     }
     wrefresh(this->mWindows[2]);
 }
