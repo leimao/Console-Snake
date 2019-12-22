@@ -35,6 +35,9 @@ public:
     void updateLeadBoard();
     void setBGM(std::string filename);
     void playKillableBGM();
+    bool readLeaderBoard();
+    bool updateLeaderBoard();
+    bool writeLeaderBoard();
 
 private:
     // We need to have two windows
@@ -59,6 +62,9 @@ private:
     int mBaseDelay = 100;
     int mDelay;
     std::unique_ptr<CPlayer> mPtrPlayer;
+    const std::string mRecordBoardFilePath = "record.dat";
+    std::vector<int> mLeaderBoard;
+    const int mNumLeaders = 3;
 };
 
 #endif

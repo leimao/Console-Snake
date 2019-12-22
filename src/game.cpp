@@ -7,6 +7,8 @@
 #include <chrono>
 #include <thread>
 
+#include <fstream>
+
 Game::Game()
 {
     // Separate the screen to three windows
@@ -30,6 +32,9 @@ Game::Game()
     this->createInstructionBoard();
 
     this->mPtrPlayer.reset(new CPlayer());
+
+    // Initialize the leader board to be all zeros
+    this->mLeaderBoard.assign(this->mNumLeaders, 0);
 }
 
 Game::~Game()
@@ -367,3 +372,42 @@ void Game::startGame()
         killSignal = false;
     }
 }
+
+
+bool Game::readLeaderBoard()
+{
+    std::fstream fhand(this->mRecordBoardFilePath, fhand.binary | fhand.trunc | fhand.in);
+    if (!fhand.is_open())
+    {
+        return false;
+    }
+    int temp;
+    int i = 0;
+    while ((fhand >> temp) && (i < mNumLeaders))
+    {
+        this->mLeaderBoard[i] = temp;
+        i ++;
+    }
+    fhand.close();
+}
+
+
+bool Game::updateLeaderBoard()
+{
+    bool updated = false;
+    int newScore = this->mPoints;
+    for (int i = 0; i < this->mNumLeaders; i ++)
+    {
+        if (this->mLeaderBoard[i] >= this->mPoints)
+        {
+            continue;
+        }
+        int oldScore = this->mLeaderBoard[i];
+        this->mLeaderBoard[i] = newScore;
+        newScore = oldScore;
+        updated = true;
+    }
+    return updated;
+}
+
+
