@@ -31,7 +31,7 @@ public:
     //Snake();
     Snake(int gameBoardWidth, int gameBoardHeight, int initialSnakeLength);
     // Set random seed
-    // void setRandomSeed(unsigned int seed);
+    void setRandomSeed();
     // Initialize snake
     void initializeSnake();
     // Check if the snake is on the coordinate

@@ -58,11 +58,8 @@ Because the installation requires to use `git submodule`, please `git clone` ins
 $ git clone https://github.com/leimao/Console_Snake.git
 $ cd Console_Snake
 $ git submodule update --init --recursive
-$ mkdir -p build
-$ cd build
-$ cmake ..
-$ make
-$ make install
+$ cmake -B build
+$ cmake --build build --target install --config Release
 ```
 
 ## Usages
