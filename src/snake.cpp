@@ -1,8 +1,7 @@
 #include "snake.h"
 #include <string>
 #include <cstdlib>
-
-
+#include <ctime>
 #include <iostream>
 
 
@@ -33,6 +32,13 @@ bool SnakeBody::operator == (const SnakeBody& snakeBody)
 Snake::Snake(int gameBoardWidth, int gameBoardHeight, int initialSnakeLength): mGameBoardWidth(gameBoardWidth), mGameBoardHeight(gameBoardHeight), mInitialSnakeLength(initialSnakeLength)
 {
     this->initializeSnake();
+    this->setRandomSeed();
+}
+
+void Snake::setRandomSeed()
+{
+    // use current time as seed for random generator
+    std::srand(std::time(nullptr));
 }
 
 void Snake::initializeSnake()
@@ -176,6 +182,8 @@ bool Snake::changeDirection(Direction newDirection)
             }
         }
     }
+
+    return false;
 }
 
 
