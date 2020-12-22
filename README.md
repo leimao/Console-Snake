@@ -4,7 +4,7 @@ Lei Mao
 
 ## Introduction
 
-The Console Snake game with background music was implemented using C++ and the libraries `libncurses` and `libcplayer`. `libncurses` (new curses) is a programming library providing an application programming interface (API) that allows the programmer to write text-based user interfaces in a terminal-independent manner. [`libcplayer`](https://github.com/leimao/Console_Player)(console player) is a C++ library for playing background audios asynchronously in C++ programs.
+The Console Snake game with background music was implemented using C++ and the libraries `libncurses` and `libcplayer`. `libncurses` (new curses) is a programming library providing an application programming interface (API) that allows the programmer to write text-based user interfaces in a terminal-independent manner. [`libcplayer`](https://github.com/leimao/Console-Player)(console player) is a C++ library for playing background audios asynchronously in C++ programs.
 
 ## Dependencies
 
@@ -12,7 +12,7 @@ The Console Snake game with background music was implemented using C++ and the l
 * libncurses 6.1+
 * [`libsndfile`](https://github.com/erikd/libsndfile)
 * [`libasound`](https://github.com/alsa-project/alsa-lib)
-* [`libcplayer`](https://github.com/leimao/Console_Player)
+* [`libcplayer`](https://github.com/leimao/Console-Player)
 
 ## Files
 
@@ -27,7 +27,7 @@ The Console Snake game with background music was implemented using C++ and the l
 │   └── mp42gif.sh
 ├── LICENSE.md
 ├── modules
-│   └── Console_Player
+│   └── Console-Player
 ├── README.md
 └── src
     ├── CMakeLists.txt
