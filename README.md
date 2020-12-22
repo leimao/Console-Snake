@@ -40,6 +40,18 @@ The Console Snake game with background music was implemented using C++ and the l
 
 ## Installation
 
+### Build Docker Image
+
+```bash
+$ docker build -f docker/snake.Dockerfile --no-cache --tag=snake:0.0.1 .
+```
+
+### Run Docker Container
+
+```bash
+$ docker run -it --rm --device /dev/snd -v $(pwd):/mnt snake:0.0.1
+```
+
 ### Installation of CMake
 
 Check out [the installation guide from Kitware](https://apt.kitware.com/).
@@ -55,8 +67,8 @@ $ sudo apt-get install libncurses-dev libsndfile-dev libasound2-dev
 Because the installation requires to use `git submodule`, please `git clone` instead of `download` the repository.
 
 ```bash
-$ git clone https://github.com/leimao/Console_Snake.git
-$ cd Console_Snake
+$ git clone https://github.com/leimao/Console-Snake.git
+$ cd Console-Snake
 $ git submodule update --init --recursive
 $ cmake -B build
 $ cmake --build build --target install --config Release
