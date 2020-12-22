@@ -52,17 +52,17 @@ $ docker build -f docker/snake.Dockerfile --no-cache --tag=snake:0.0.1 .
 $ docker run -it --rm --device /dev/snd -v $(pwd):/mnt snake:0.0.1
 ```
 
-### Installation of CMake
+### Install CMake
 
 Check out [the installation guide from Kitware](https://apt.kitware.com/).
 
-### Installation of Dependencies
+### Install Dependencies
 
 ```bash
 $ sudo apt-get install libncurses-dev libsndfile-dev libasound2-dev
 ```
 
-### Installation of the Game
+### Install Game
 
 Because the installation requires to use `git submodule`, please `git clone` instead of `download` the repository.
 
@@ -80,14 +80,14 @@ $ cmake --build build --target install --config Release
 
 Control the snake to eat food as much as possible. You get one point for every food your snake eat. The level of difficulty would increase every 5 points you get.
 
-### Playing the Game Using Default BGM
+### Play Game Using Default BGM
 
 ```bash
 $ cd bin/
 $ ./main
 ```
 
-### Playing the Game Using Custom BGM
+### Play Game Using Custom BGM
 
 The user is also allowed to use custom BGMs.
 
