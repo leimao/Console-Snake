@@ -3,9 +3,10 @@
 
 #include <ncurses.h>
 #include <vector>
-#include "snake.h"
 #include <memory>
+#include <string>
 
+#include "snake.h"
 #include "cplayer.h"
 
 class Game
@@ -63,7 +64,7 @@ private:
     int mBaseDelay = 100;
     int mDelay;
     std::unique_ptr<CPlayer> mPtrPlayer;
-    const std::string mRecordBoardFilePath = "record.dat";
+    const std::string mRecordBoardFilePath{"record.dat"};
     std::vector<int> mLeaderBoard;
     const int mNumLeaders = 3;
 };
